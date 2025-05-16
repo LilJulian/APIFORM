@@ -18,25 +18,25 @@ class Usuario {
       throw new Error("Error al obtener la usuario");
     }
   }
-  async create(nombre, apellido, telefono, documento, id_ciudad, id_genero) {
+  async create(nombre, apellido, telefono, documento, nombre_usuario, id_ciudad, id_genero) {
     try {
-      const [result] = await connection.query(`insert into usuarios(nombre, apellido, telefono, documento, id_ciudad, id_genero) values 
-        (?,?,?,?,?,?)`, [nombre, apellido, telefono, documento, id_ciudad, id_genero])
+      const [result] = await connection.query(`insert into usuarios(nombre, apellido, telefono, documento, nombre_usuario, id_ciudad, id_genero) values 
+        (?,?,?,?,?,?,?)`, [nombre, apellido, telefono, documento, nombre_usuario,  id_ciudad, id_genero])
       return {
-        id: result.id, nombre, apellido, telefono, documento, id_ciudad, id_genero
+        id: result.id, nombre, apellido, telefono, documento, nombre_usuario,  id_ciudad, id_genero
       }
     } catch (error) {
       throw new Error("Error al insertar usuario ");
     }
   }
-  async updateUsuario(nombre, apellido, telefono, documento, id_ciudad, id_genero, id) {
+  async updateUsuario(nombre, apellido, telefono, documento, nombre_usuario, id_ciudad, id_genero, id) {
     try {
-      const [result] = await connection.query(`update usuarios set nombre = ?, apellido = ?, telefono = ?, documento = ?, id_ciudad = ?, id_genero = ? where id = ?`, [nombre, apellido, telefono, documento, id_ciudad, id_genero, id]);
+      const [result] = await connection.query(`update usuarios set nombre = ?, apellido = ?, telefono = ?, documento = ?, nombre_usuario = ?, id_ciudad = ?, id_genero = ? where id = ?`, [nombre, apellido, telefono, documento, nombre_usuario, id_ciudad, id_genero, id]);
       if (result.affectedRows === 0) {
         throw new Error("usuario no encontrado");
       }
       return {
-        id: result.id, nombre, apellido, telefono, documento, id_ciudad, id_genero
+        id: result.id, nombre, apellido, telefono, documento, nombre_usuario, id_ciudad, id_genero
       }
     } catch (error) {
       throw new Error("Error al actualizar el usuario");

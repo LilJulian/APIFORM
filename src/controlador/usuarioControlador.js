@@ -1,4 +1,4 @@
-import Usuario from "../modelos/usuarios.js";
+
 import { RespuestaEstado } from "../estados/respuestaEstado.js";
 import UsuarioServicio from "../servicios/usuarioServicios.js";
 
@@ -8,11 +8,11 @@ class UsuarioControlador {
   static getAllUsuario = async (req, res) => {
     try {
       const respuesta = await UsuarioServicio.getAllUsuario();
-      if (respuesta.error) {
+      if (respuesta.error) {        
         return RespuestaEstado.fallo(
           res,
           respuesta.message,
-          respuesta.code
+          respuesta.code,          
         )
       }
       return RespuestaEstado.hecho(
@@ -46,12 +46,13 @@ class UsuarioControlador {
     }
   }
   static createusuario = async (req, res) => {
-    const { nombre, apellido, telefono, documento, id_ciudad, id_genero } = req.body;
+    const { nombre, apellido, telefono, documento, nombre_usuario, id_ciudad, id_genero } = req.body;
     try {
-      const respuesta = UsuarioServicio.createUsuario(nombre, apellido, telefono, documento, id_ciudad, id_genero);
+      const respuesta = UsuarioServicio.createUsuario(nombre, apellido, telefono, documento, nombre_usuario, id_ciudad, id_genero);
       if (respuesta.error) {
         return RespuestaEstado.fallo(
           res,
+          respuesta.data,
           respuesta.message,
           respuesta.code
         );
@@ -68,8 +69,8 @@ class UsuarioControlador {
   static actualizarusuario = async (req, res) => {
     try {
       const { id } = req.params
-      const { nombre, apellido, telefono, documento, id_ciudad, id_genero } = req.body;
-      const usuario = await UsuarioServicio.actualizarUsuarioPut(nombre, apellido, telefono, documento, id_ciudad, id_genero, id)
+      const { nombre, apellido, telefono, documento, nombre_usuario, id_ciudad, id_genero } = req.body;
+      const usuario = await UsuarioServicio.actualizarUsuarioPut(nombre, apellido, telefono, documento, nombre_usuario, id_ciudad, id_genero, id)
       return RespuestaEstado.hecho(
         res, usuario.data, usuario.message, usuario.code
       )

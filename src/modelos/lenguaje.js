@@ -18,12 +18,22 @@ class Lenguaje {
       throw new Error("Error al obtener los lenguajes");
     }
   }
-  async getById() {
+  async getById(id) {
     try {
-      const [result] = await connection.query("SELECT * FROM lenguaje WHERE ID = ?", [id])
+      const [result] = await connection.query("select * from lenguaje where id_lenguaje = ?", [id])
       return result[0]
     } catch (error) {
       throw new Error("Error al obtener el lenguaje");
+    }
+  }
+   async create(nombre_lenguaje) {
+    try {
+      const [result] = await connection.query(`insert into lenguaje (nombre_lenguaje) values (?);`, [nombre_lenguaje])
+      return {
+        id: result.id, nombre_lenguaje
+      }
+    } catch (error) {
+      throw new Error("Error al insertar lenguaje");
     }
   }
 }
