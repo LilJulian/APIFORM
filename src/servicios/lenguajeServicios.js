@@ -49,7 +49,7 @@ class LenguajeServicio {
       return {
         error: true,
         code: 500,
-        message: "Error al obtener usuario"
+        message: "Error al obtener lenguaje"
       }
     }
   }
@@ -69,6 +69,45 @@ class LenguajeServicio {
         code: 500,
         message: "Error al crear el lenguaje"
       }
+    }
+  }
+    static async actualizarLenguaje(nombre_lenguaje, id) {
+    try {
+      const OBJLenguaje = new Lenguaje();
+      const lenguaje = await OBJLenguaje.updateLenguaje(nombre_lenguaje, id);
+      return {
+        error: false,
+        code: 200,
+        message: "lenguaje actualizado correctamente",
+        data: lenguaje
+      }
+    } catch (error) {
+      console.log(error.data);
+      
+      return {
+        error: true,
+        code: 500,
+        message: "No se puede actualizar el lenguaje"
+      }
+    }
+  }
+   static async eliminarLenguaje(id) {
+    try {
+      const OBJLenguaje = new Lenguaje();
+      const lenguaje = await OBJLenguaje.deleteLenguaje(id)
+      return {
+        error: false,
+        code: 200,
+        message: "Lsuario eliminado correctamente",
+        data: lenguaje
+      }
+    } catch (error) {
+      return {
+        error: true,
+        code: 500,
+        message: "No se puede eliminar el lenguaje"
+      }
+
     }
   }
 }

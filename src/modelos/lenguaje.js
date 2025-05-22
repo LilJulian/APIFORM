@@ -36,6 +36,27 @@ class Lenguaje {
       throw new Error("Error al insertar lenguaje");
     }
   }
+  async updateLenguaje(nombre_lenguaje, id) {
+    try {
+      const [result] = await connection.query(`update lenguaje set nombre_lenguaje = ? where id_lenguaje     = ?`, [ nombre_lenguaje, id]);
+      if (result.affectedRows === 0) {
+        throw new Error("lenguaje no encontrado");
+      }
+      return {
+        id: result.id,nombre_lenguaje
+      }
+    } catch (error) {
+      throw new Error("Error al actualizar el lenguaje");
+    }
+  }
+    async deleteLenguaje(id) {
+    try {
+      const [result] = await connection.query(`delete from lenguaje where id_lenguaje = ?`, [id]);
+      return result;
+    } catch (error) {
+      throw new Error("Error al eliminar el lenguaje");
+    }
+  }
 }
 
 export default Lenguaje;

@@ -124,7 +124,6 @@ class UsuarioServicio {
         code: 500,
         message: "No se puede eliminar el usuario"
       }
-
     }
   }
 }
